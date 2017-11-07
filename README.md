@@ -8,10 +8,10 @@ TODO: These instructions will get you a copy of the project up and running on yo
 
 ### Prerequisites
 
-TODO: What things you need to install the software and how to install them
+Python 3.6.0
 
 ```
-Give examples
+"AttributeError: 'TypeField' object has no attribute 'name'" when using earlier versions.
 ```
 
 ### Installing
@@ -80,4 +80,4 @@ see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-* TODO:
+* [Randy Daw-Ran Liou](https://medium.com/@dawran6/writing-descriptors-in-python-3-6-b26affd15a0a)

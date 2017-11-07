@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#! /usr/bin/python3.6
 
 import threading
 import datetime
@@ -77,10 +77,12 @@ def check_alarms(alarms):
                 if alarm.thread == None:
                     create_thread(alarm)
 
-# a = ja.Alarms("alarms.json").load()
-# check_alarms(a)
-# print(a.alarms['Alarms'][0].thread)
-#create_thread(a.alarms['Alarms'][0])
-#check_alarm_time(a.alarms['Alarms'][0])
-#alarm_thread(a.alarms['Alarms'][0])
-#print(f(a.alarms['Alarms']))
+
+if __name__ == "__main__":
+    # a = ja.Alarms("alarms.json").load()
+    # check_alarms(a)
+    # print(a.alarms['Alarms'][0].thread)
+    #create_thread(a.alarms['Alarms'][0])
+    #check_alarm_time(a.alarms['Alarms'][0])
+    #alarm_thread(a.alarms['Alarms'][0])
+    #print(f(a.alarms['Alarms']))

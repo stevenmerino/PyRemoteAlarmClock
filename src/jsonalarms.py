@@ -1,15 +1,15 @@
-#! /usr/bin/python3
+#! /usr/bin/python3.6
 
 import json
 import datetime
-# import typefield as typ # TODO: Figure out why this works on Win and not Rasbian
+import typefield    # Needs Python 3.6 to work.
 
 # Alarm class that requires respective data types and serialize to list.
 class Alarm:
-    #name = typ.TypeField(str)      # Causing major problems on RasPi
-    #msg = typ.TypeField(str)
-    #time = typ.TypeField(list)
-    #repeat = typ.TypeField(list)
+    name = typefield.Type(str)
+    msg = typefield.Type(str)
+    time = typefield.Type(list)
+    repeat = typefield.Type(list)
 
     def __init__(self, id_int, name, msg, time, repeat):
         self.id = id_int            # An int identifier
@@ -76,14 +76,15 @@ def weekday_to_string(weekday_int):
         6: "Sunday"
     }.get(weekday_int, default = "Error")    # Error if weekday_int not found
 
-#alarms = Alarms("alarms.json")
-# alarms.load("alarms.json")
-# print(type(alarms.alarms['Alarms']))
-# print(len(alarms.alarms['Alarms']))
-# print(alarms.alarms)
-#alarms.create(name = "Alarm 1", msg = "Wake up!", time = [17,10], repeat = [0,1,2,3,4,5,6])
-#alarms.create(name = "Alarm 2", msg = "Wake up!", time = [17,10], repeat = [0,1,2,3,4,5,6])
-# print(type(alarms.alarms['Alarms']))
-# print(len(alarms.alarms['Alarms']))
-# print(alarms.alarms)
-#alarms.save()
+if __name__ == "__main__":
+    #alarms = Alarms("alarms.json")
+    # alarms.load("alarms.json")
+    # print(type(alarms.alarms['Alarms']))
+    # print(len(alarms.alarms['Alarms']))
+    # print(alarms.alarms)
+    #alarms.create(name = "Alarm 1", msg = "Wake up!", time = [17,10], repeat = [0,1,2,3,4,5,6])
+    #alarms.create(name = "Alarm 2", msg = "Wake up!", time = [17,10], repeat = [0,1,2,3,4,5,6])
+    # print(type(alarms.alarms['Alarms']))
+    # print(len(alarms.alarms['Alarms']))
+    # print(alarms.alarms)
+    #alarms.save()

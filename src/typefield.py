@@ -1,21 +1,26 @@
-#! /usr/bin/python3
+#! /usr/bin/python3.6
 
-# Class that can be used to require certain data types in a class. See PEP 487: Descriptor Protocol Enhancements
+# Descriptors class for binding types to attributes
+class Type:
+    def __set_name__(self, owner, name):
+        self.name = name
 
-# TODO: Figure out why this works on Win and not Rasbian
+    def __init__(self, typefield):
+        self.type = typefield
 
-# class TypeField:
-#     def __init__(self, typefield):
-#         self.type = typefield
-# 
-#     def __get__(self, instance, owner):
-#         return instance.__dict__[self.name]
-#
-#     def __set__(self, instance, value):
-#         if not isinstance(value, self.type):
-#             raise ValueError(f'expecting {self.type} in var "{self.name}", got: {type(value)}')
-#         instance.__dict__[self.name] = value
-#
-#     # this is the new initializer:
-#     def __set_name__(self, owner, name):
-#         self.name = name
+    def __get__(self, instance, owner):
+        return instance.__dict__[self.name]
+
+    def __set__(self, instance, value):
+        if not isinstance(value, self.type):
+            raise ValueError("Expecting {0} in variable '{1}'', got: {2}".format(self.type, self.name, type(value)))
+        instance.__dict__[self.name] = value
+
+
+if __name__ == "__main__":
+    class TestClass:
+        name = TypeField(str)
+        def __init__(self, name):
+            self.name = name
+
+    test = TestClass(5)
