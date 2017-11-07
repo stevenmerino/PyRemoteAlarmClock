@@ -1,3 +1,3 @@
-v1.0.1 - Fixed typefield bug.
+v1.0.1 - Patch 1 - Fixed typefield issues, typos, etc.
 
-v1.0.0 - Hellish, nightmarish, sloppy, chaos...but it works.
+v1.0.0 - Initial Release - Hellish, nightmarish, sloppy, chaos...but it works.
