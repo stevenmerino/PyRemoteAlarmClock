@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import serverclientsocket as scs
 import jsonalarms as ja
 import sys
