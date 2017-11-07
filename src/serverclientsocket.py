@@ -9,7 +9,7 @@ class ServerSocket:
         self.host = socket.gethostname()
         self.port = port
         self.msg = None
-        self.s.bind((self.host, self.port))
+        self.s.bind(("", self.port)) # Dont specify host when binding on RasPi
         self.s.listen(5)
         self.t = threading.Thread(target = self._listen)
         self.t.start()
