@@ -11,6 +11,9 @@ try:
     a = ja.Alarms("alarms.json").load()
 except:
     a = ja.Alarms("alarms.json")
+    print("Created new Alarms file.")
+else:
+    print("Alarms loaded from file.")
 
 while True:
     jau.check_alarms(a)

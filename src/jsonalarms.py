@@ -2,14 +2,14 @@
 
 import json
 import datetime
-import typefield as typ
+# import typefield as typ # TODO: Figure out why this works on Win and not Rasbian
 
 # Alarm class that requires respective data types and serialize to list.
 class Alarm:
-    name = typ.TypeField(str)
-    msg = typ.TypeField(str)
-    time = typ.TypeField(list)
-    repeat = typ.TypeField(list)
+    #name = typ.TypeField(str)      # Causing major problems on RasPi
+    #msg = typ.TypeField(str)
+    #time = typ.TypeField(list)
+    #repeat = typ.TypeField(list)
 
     def __init__(self, id_int, name, msg, time, repeat):
         self.id = id_int            # An int identifier
