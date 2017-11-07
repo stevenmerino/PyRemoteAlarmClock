@@ -4,7 +4,7 @@ Alarm clock application that is controlled from a separate device. The idea bein
 
 It should be mentioned that I'm a noob programmer. This program uses raw sockets to transfer JSON across the network and potentially has security risks.
 
-USE AT YOUR OWN RISK
+**USE AT YOUR OWN RISK**
 
 ## Getting Started
 
@@ -28,8 +28,8 @@ sudo pip3.6 install pygame
 
 ### Installing
 
-Place music files in src/res/music
-You will need to edit the 'src/jsonalarmsutils.py' trigger function to point to the correct path of your songs.
+Place music files in "src/res/music"
+You will need to edit the "src/jsonalarmsutils.py" trigger function to point to the correct path of your songs.
 It is pretty embarrassing how this works, but it will be changed in the next feature upgrade to detect mp3 in the directory automatically and not use weird while loops to detect the end of the song.
 
 ```
@@ -84,14 +84,14 @@ Version 1.0.1 - [Changelog](CHANGES.md)
 
 ## Authors
 
-* **Steven Merino** - *Initial work* - [stevenmerino](https://github.com/stevenmerino)
+* **Steven Merino**, 2017, [stevenmerino](https://github.com/stevenmerino)
 
 See also the list of [contributors](AUTHORS.md) who participated in this project.
 
 ## License
 
-see the [LICENSE.md](LICENSE.md) file for details
+See the [LICENSE.md](LICENSE.md) file for details.
 
 ## Acknowledgments
 
-* [Randy Daw-Ran Liou](https://medium.com/@dawran6/writing-descriptors-in-python-3-6-b26affd15a0a)
+* [Randy Daw-Ran Liou](https://medium.com/@dawran6/writing-descriptors-in-python-3-6-b26affd15a0a) - Python descriptors article.
