@@ -53,6 +53,7 @@ def stop_trigger():
 # Creates a thread that runs alarm_thread func for the given Alarm and stores that thread in the Alarm
 def create_thread(alarm):
     t = threading.Thread(target = alarm_thread, args = (alarm,))
+    t.daemon = True
     t.start()
     alarm.thread = t
 
