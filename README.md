@@ -1,36 +1,50 @@
-# PyRemoteAlarmClock
+# RemoteAlarmClock
 
-v1.0.0 - Hellish, nightmarish, sloppy, chaos...but it works.
+Alarm clock application that is controlled from a separate device. The idea being that you need get out of bed, go all the way to a different room to turn off your morning alarm. Further increasing the chances that you will stay awake when your alarm goes off. No snoozing allowed!
+
+It should be mentioned that I'm a noob programmer. This program uses raw sockets to transfer JSON across the network and potentially has security risks.
+
+USE AT YOUR OWN RISK
 
 ## Getting Started
 
-TODO: These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The way I'm implementing this into my routine is by having a wireless Raspberry Pi with speakers in my room, running the RemoteAlarmClock server. The RemoteAlarmClock client is used from my main computer in another room. In the future I would like to set up a battery powered Raspberry Pi Zero W as the client and be able to place it anywhere I choose say the kitchen next to the coffee pot for instance.
+
+If you are going to use the server on a Raspberry Pi currently you will need to build python 3.6.0 yourself. [These](https://gist.github.com/dschep/24aa61672a2092246eaca2824400d37f) instructions worked for me.
+
+See Prerequisites for additional requirements.
 
 ### Prerequisites
 
-Python 3.6.0
-
+[Python 3.6.0](https://www.python.org/downloads/release/python-360/)
 ```
-"AttributeError: 'TypeField' object has no attribute 'name'" when using earlier versions.
+When using earlier versions: "AttributeError: 'TypeField' object has no attribute 'name'"
+```
+
+[pygame](https://www.pygame.org/wiki/GettingStarted)
+```
+sudo pip3.6 install pygame
 ```
 
 ### Installing
 
-TODO: A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+Place music files in src/res/music
+You will need to edit the 'src/jsonalarmsutils.py' trigger function to point to the correct path of your songs.
+It is pretty embarrassing how this works, but it will be changed in the next feature upgrade to detect mp3 in the directory automatically and not use weird while loops to detect the end of the song.
 
 ```
-until finished
+def trigger(alarm):
+    print("Alarm Triggered", alarm.name, alarm.msg)
+    pygame.mixer.music.load(os.path.join('res', 'music', 'song1.mp3'))
+    pygame.mixer.music.play(0)
+    while pygame.mixer.music.get_busy():
+        pass
+    pygame.mixer.music.load(os.path.join('res', 'music', 'song2.mp3'))
+    pygame.mixer.music.play(0)
+    while pygame.mixer.music.get_busy():
+        pass
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
@@ -38,7 +52,7 @@ TODO: Explain how to run the automated tests for this system
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
+TODO: Explain what these tests test and why
 
 ```
 Give an example
@@ -66,7 +80,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-Version 1.0.0 - [Changelog](CHANGES.md)
+Version 1.0.1 - [Changelog](CHANGES.md)
 
 ## Authors
 
