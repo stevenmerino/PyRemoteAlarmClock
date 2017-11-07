@@ -6,6 +6,8 @@ import jsonalarms as ja
 import pygame
 import os
 
+pygame.mixer.init()
+
 # Checks a single Alarm to see if today's weekday is in the list of weekdays (Alarm.repeat)
 def check_alarm_weekday(alarm):
     for weekday in alarm.repeat:
@@ -26,7 +28,6 @@ def check_alarm_time(alarm):
 # This is a gnarly nightmarish way to do a playlist TODO: revise music player add random song selection
 def trigger(alarm):
     print("Alarm Triggered", alarm.name, alarm.msg)
-    pygame.mixer.init()
     pygame.mixer.music.load(os.path.join('res', 'music', 'hobbits.mp3'))
     pygame.mixer.music.play(0)
     while pygame.mixer.music.get_busy():

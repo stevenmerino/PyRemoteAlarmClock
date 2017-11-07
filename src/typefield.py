@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-# Classes that can be used to require certain data types in a class. See PEP 487: Descriptor Protocol Enhancements
+# Class that can be used to require certain data types in a class. See PEP 487: Descriptor Protocol Enhancements
 
 class TypeField:
     def __init__(self, typefield):
@@ -11,7 +11,7 @@ class TypeField:
 
     def __set__(self, instance, value):
         if not isinstance(value, self.type):
-            raise ValueError(f'expecting {self.type} in var "{self.name}", got: {type(value)}')
+            raise ValueError('expecting {self.type} in var "{self.name}", got: {type(value)}')
         instance.__dict__[self.name] = value
 
     # this is the new initializer:
