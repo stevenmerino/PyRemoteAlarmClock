@@ -8,7 +8,7 @@ It should be mentioned that I'm a noob programmer. This program uses raw sockets
 
 ## Getting Started
 
-The way I'm implementing this into my routine is by having a wireless Raspberry Pi with speakers in my room, running the RemoteAlarmClock server. The RemoteAlarmClock client is used from my main computer in another room. In the future I would like to set up a battery powered Raspberry Pi Zero W as the client and be able to place it anywhere I choose say the kitchen next to the coffee pot for instance.
+The way I'm implementing this into my routine is by having a wireless Raspberry Pi with speakers in my bedroom, running the RemoteAlarmClock server. The RemoteAlarmClock client is used from my main computer in another room. In the future I would like to set up a battery powered Raspberry Pi Zero W as the client and be able to place it anywhere I choose say the kitchen next to the coffee pot for instance.
 
 If you are going to use the server on a Raspberry Pi currently you will need to build python 3.6.0 yourself. [These](https://gist.github.com/dschep/24aa61672a2092246eaca2824400d37f) instructions worked for me.
 
@@ -28,11 +28,11 @@ sudo pip3.6 install pygame
 
 ### Installing
 
-Place music files in "src/res/music"
-You will need to edit the "src/jsonalarmsutils.py" trigger function to point to the correct path of your songs.
+Place music files in "**src/res/music**"
+You will need to edit the "**src/jsonalarmsutils.py**" *trigger()* function to point to the correct path of your songs.
 It is pretty embarrassing how this works, but it will be changed in the next feature upgrade to detect mp3 in the directory automatically and not use weird while loops to detect the end of the song.
 
-```
+```python
 def trigger(alarm):
     print("Alarm Triggered", alarm.name, alarm.msg)
     pygame.mixer.music.load(os.path.join('res', 'music', 'song1.mp3'))
