@@ -1,4 +1,4 @@
-# Project Title
+# PyRemoteAlarmClock
 
 v1.0.0 - Hellish, nightmarish, sloppy, chaos...but it works.
 
