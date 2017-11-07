@@ -6,7 +6,11 @@ import jsonalarms as ja
 import jsonalarmsutils as jau
 
 s = scs.ServerSocket()
-a = ja.Alarms("alarms.json").load()
+
+try:
+    a = ja.Alarms("alarms.json").load()
+except:
+    a = ja.Alarms("alarms.json")
 
 while True:
     jau.check_alarms(a)
