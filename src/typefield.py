@@ -5,6 +5,7 @@
 class TypeField:
     def __init__(self, typefield):
         self.type = typefield
+        self.name = ""
 
     def __get__(self, instance, owner):
         return instance.__dict__[self.name]
