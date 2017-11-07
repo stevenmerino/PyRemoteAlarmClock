@@ -79,6 +79,7 @@ def check_alarms(alarms):
 
 
 if __name__ == "__main__":
+    pass
     # a = ja.Alarms("alarms.json").load()
     # check_alarms(a)
     # print(a.alarms['Alarms'][0].thread)

@@ -77,6 +77,7 @@ def weekday_to_string(weekday_int):
     }.get(weekday_int, default = "Error")    # Error if weekday_int not found
 
 if __name__ == "__main__":
+    pass
     #alarms = Alarms("alarms.json")
     # alarms.load("alarms.json")
     # print(type(alarms.alarms['Alarms']))
