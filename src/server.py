@@ -10,9 +10,9 @@ if __name__ == "__main__":
     s = scs.ServerSocket()
 
     try:
-        a = ja.Alarms("alarms.json").load()
+        a = ja.Alarms("alarms.json").load()      # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
     except:
-        a = ja.Alarms("alarms.json")
+        a = ja.Alarms("alarms.json")             # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
         print("Created new Alarms file.")
     else:
         print("Alarms loaded from file.")

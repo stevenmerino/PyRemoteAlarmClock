@@ -38,7 +38,7 @@ class Alarms:
         json_alarms['Alarms'] = []
         for alarm in self.alarms['Alarms']:
             json_alarms['Alarms'].append(alarm.to_list())
-        with open(self.filepath, 'w') as outfile:
+        with open(self.filepath, 'w') as outfile:       # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
             json.dump(json_alarms, outfile, indent = 5)
 
     def save_new(self, injson):
@@ -46,7 +46,7 @@ class Alarms:
         json_alarms['Alarms'] = []
         for alarm in injson['Alarms']:
             json_alarms['Alarms'].append(alarm)
-        with open(self.filepath, 'w') as outfile:
+        with open(self.filepath, 'w') as outfile:        # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
             json.dump(json_alarms, outfile, indent = 5)
 
     def load(self):
