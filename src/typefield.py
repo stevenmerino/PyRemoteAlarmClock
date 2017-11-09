@@ -1,4 +1,4 @@
-#! /usr/bin/python3.6
+#! /usr/local/bin/python3.6
 
 # Descriptors class for binding types to attributes
 class Type:
