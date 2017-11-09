@@ -1,0 +1,20 @@
+TODO:
+Change file structure
+Combine jsonalarms.py and jsonalarmsutils.py
+Rework the server algorithm 
+Rework music player
+Create CLI for client
+Create GUI for client
+
+/RemoteAlarmClock
+	client.py
+	setup.py
+	server.py
+	/res
+		/alarms
+			alarms.json
+		/modules
+			alarms.py
+			sockets.py
+			typefield.py
+		/music
