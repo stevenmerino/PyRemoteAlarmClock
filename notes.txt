@@ -1,7 +1,8 @@
 TODO:
-Change file structure
-Combine jsonalarms.py and jsonalarmsutils.py
-Rework the server algorithm 
+X Change file structure
+X Combine jsonalarms.py and jsonalarmsutils.py
+X fix file path issues to alarms.json
+Rework the server algorithm
 Rework music player
 Create CLI for client
 Create GUI for client

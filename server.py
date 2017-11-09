@@ -3,6 +3,7 @@
 import res.modules.sockets as sockets
 import res.modules.alarms as alarms
 import json
+import os
 
 
 
@@ -10,10 +11,12 @@ import json
 if __name__ == "__main__":
     s = sockets.ServerSocket()
 
+    alarmpath = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))
+
     try:
-        a = alarms.Alarms("alarms.json").load()      # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
+        a = alarms.Alarms(alarmpath).load()      # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
     except:
-        a = alarms.Alarms("alarms.json")             # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
+        a = alarms.Alarms(alarmpath)             # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
         print("Created new Alarms file.")
     else:
         print("Alarms loaded from file.")

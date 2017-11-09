@@ -3,10 +3,14 @@
 import res.modules.sockets as sockets
 import res.modules.alarms as alarms
 import sys
+import os
 
 if __name__ == "__main__":
     c = sockets.ClientSocket()
-    alarms = alarms.Alarms("alarms.json")
+
+    alarmpath = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))
+
+    alarms = alarms.Alarms(alarmpath)
     alarms.create(name = "Alarm 1", msg = "Wake up!", time = [10,0], repeat = [0,1,2,3,4,5,6])
     alarms.save()
 
