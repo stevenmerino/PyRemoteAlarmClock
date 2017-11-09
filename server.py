@@ -1,38 +1,39 @@
 #! /usr/local/bin/python3.6
 
-import serverclientsocket as scs
+import res.modules.sockets as sockets
+import res.modules.alarms as alarms
 import json
-import jsonalarms as ja
-import jsonalarmsutils as jau
+
+
 
 
 if __name__ == "__main__":
-    s = scs.ServerSocket()
+    s = sockets.ServerSocket()
 
     try:
-        a = ja.Alarms("alarms.json").load()      # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
+        a = alarms.Alarms("alarms.json").load()      # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
     except:
-        a = ja.Alarms("alarms.json")             # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
+        a = alarms.Alarms("alarms.json")             # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
         print("Created new Alarms file.")
     else:
         print("Alarms loaded from file.")
 
     while True:
-        jau.check_alarms(a)
+        alarms.check_alarms(a)
         a.save()
         if s.msg is not None:
             try:
-                alarms = json.loads(s.msg)
+                new = json.loads(s.msg)
             except json.decoder.JSONDecodeError:
                 pass
             else:
                 print("Got JSON:", s.msg)
-                a.save_new(alarms)
+                a.save_new(new)
                 a.load()
                 s.msg = None
 
             if s.msg == "stop":
-                jau.stop_trigger()
+                alarms.stop_trigger()
                 s.msg = None
             elif s.msg == "quit":
                 break
