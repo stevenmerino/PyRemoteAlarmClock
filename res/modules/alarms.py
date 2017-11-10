@@ -38,28 +38,34 @@ class Alarms:
     def create(self, name, msg, time, repeat):
         self.alarms['Alarms'].append(Alarm( len(self.alarms['Alarms']), name = name, msg = msg, time = time, repeat = repeat))
 
-    def save(self):
-        json_alarms = {}
-        json_alarms['Alarms'] = []
-        for alarm in self.alarms['Alarms']:
-            json_alarms['Alarms'].append(alarm.to_list())
-        with open(self.filepath, 'w') as outfile:       # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
-            json.dump(json_alarms, outfile, indent = 5)
-
-    def save_new(self, injson):
-        json_alarms = {}
-        json_alarms['Alarms'] = []
-        for alarm in injson['Alarms']:
-            json_alarms['Alarms'].append(alarm)
-        with open(self.filepath, 'w') as outfile:        # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
-            json.dump(json_alarms, outfile, indent = 5)
+    def save(self, json_alarms):
+        alarms_object = {}
+        alarms_object['Alarms'] = []
+        for alarm in json_alarms['Alarms']:
+            alarms_object['Alarms'].append(alarm)
+        try:
+            with open(self.filepath, 'w') as outfile:
+                json.dump(alarms_object, outfile, indent = 5)
+        except OSError as err:
+            print("OS error: {0}".format(err))
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+        else:
+            print("Saved:", alarms_object)
 
     def load(self):
-        with open(self.filepath) as infile:         # TODO: If no file exists, create one
-            self.alarms = {}
-            self.alarms['Alarms'] = []
-            for alarm in json.load(infile)['Alarms']:
-                self.create(alarm[1]['name'], alarm[1]['msg'], alarm[1]['time'], alarm[1]['repeat'])
+        try:
+            with open(self.filepath) as infile:         # TODO: If no file exists, create one
+                self.alarms = {}
+                self.alarms['Alarms'] = []
+                for alarm in json.load(infile)['Alarms']:
+                    self.create(alarm[1]['name'], alarm[1]['msg'], alarm[1]['time'], alarm[1]['repeat'])
+        except OSError as err:
+            print("OS error: {0}".format(err))
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+        else:
+            print("Loaded:", self.to_json())
         return self
 
     def to_json(self):
@@ -83,8 +89,8 @@ def weekday_to_string(weekday_int):
 
 # Checks each Alarm in the list of Alarms if 1. today is in the Alarm's list of weekdays 2. the alarm is in the future and 3. if a thread for the alarm has already been created.
 # If an alarm is today, in the future, and has no thread, one is created.
-def check_alarms(alarms):
-    for alarm in alarms.alarms['Alarms']:
+def check_alarms(alarms_object):
+    for alarm in alarms_object.alarms['Alarms']:
         if check_alarm_weekday(alarm):
             if check_alarm_time(alarm):
                 if alarm.thread == None:
@@ -124,8 +130,6 @@ def alarm_thread(alarm):
             trigger(alarm)
             run = False
 
-
-
 # The trigger that is run when an alarm equals the current time
 # This is a gnarly nightmarish way to do a playlist TODO: revise music player add random song selection
 def trigger(alarm):
@@ -152,15 +156,11 @@ def stop_trigger():
     else:
         print("Trigger is not running.")
 
-
-
-
-
-
-
-
 if __name__ == "__main__":
-    pass
+    alarms_path = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))
+    alarms_object = Alarms(alarms_path).load()
+    print(alarms_object)
+
     #alarms = Alarms("alarms.json")
     # alarms.load("alarms.json")
     # print(type(alarms.alarms['Alarms']))

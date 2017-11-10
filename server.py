@@ -5,43 +5,46 @@ import res.modules.alarms as alarms
 import json
 import os
 
-
-
-
 if __name__ == "__main__":
-    s = sockets.ServerSocket()
+    server_socket = sockets.ServerSocket()
 
-    alarmpath = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))
+    alarms_path = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))
 
     try:
-        a = alarms.Alarms(alarmpath).load()      # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
+        alarms_object = alarms.Alarms(alarms_path).load()   # Loads alarm object from file
     except:
-        a = alarms.Alarms(alarmpath)             # Permission error on RasPi need to use direct path '/home/pi/alarm.json'
-        print("Created new Alarms file.")
+        alarms_object = alarms.Alarms(alarms_path)          # If there is no alarm file, create new alarm object.
+        print("Created new Alarms object.")
     else:
-        print("Alarms loaded from file.")
+        print("Alarms object loaded from file.")
 
     while True:
-        alarms.check_alarms(a)
-        a.save()
-        if s.msg is not None:
+        alarms.check_alarms(alarms_object)                  # Create threads from alarm object if applicable
+        if server_socket.msg is not None:
             try:
-                new = json.loads(s.msg)
+                json_alarms = json.loads(server_socket.msg)
             except json.decoder.JSONDecodeError:
                 pass
             else:
-                print("Got JSON:", s.msg)
-                a.save_new(new)
-                a.load()
-                s.msg = None
+                print("Client sent JSON.")
+                alarms_object.save(json_alarms)     # Save json to file
+                alarms_object.load()                # Load newly saved file into alarms_object
+                server_socket.msg = None
 
-            if s.msg == "stop":
+            if server_socket.msg == "stop":
                 alarms.stop_trigger()
-                s.msg = None
-            elif s.msg == "quit":
+                server_socket.msg = None
+            elif server_socket.msg == "status":
+                print("Client requested status. Feature unfinished.")
+                server_socket.msg = None
+            elif server_socket.msg == "quit":
+                print("Client sent 'quit', server shutting down.")
                 break
+            elif server_socket.msg == None:
+                pass
             else:
-                s.msg = None
+                print("Client sent unknown command.")
+                server_socket.msg = None
 
 # Copyright 2017 Steven Merino
 #
