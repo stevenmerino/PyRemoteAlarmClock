@@ -1,19 +1,22 @@
 #! /usr/local/bin/python3.6
 
-import serverclientsocket as scs
-import jsonalarms as ja
+import res.modules.sockets as sockets
+import res.modules.alarms as alarms
 import sys
+import os
 
 if __name__ == "__main__":
-    c = scs.ClientSocket()
-    alarms = ja.Alarms("alarms.json")
-    alarms.create(name = "Alarm 1", msg = "Wake up!", time = [9,0], repeat = [0,1,2,3,4,5,6])
-    alarms.save()
+    client_socket = sockets.ClientSocket()
+
+    alarms_path = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))
+
+    alarms_object = alarms.Alarms(alarms_path)
+    alarms_object.create(name = "Alarm 1", msg = "Wake up!", time = [17,36], repeat = [0,1,2,3,4,5,6])
 
     if sys.argv[-1] == "send":
-        c.send(alarms.to_json())
+        client_socket.send(alarms_object.to_json())
     else:
-        c.send(sys.argv[-1])
+        client_socket.send(sys.argv[-1])
 
 # Copyright 2017 Steven Merino
 #
