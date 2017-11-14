@@ -4,7 +4,7 @@ X Combine jsonalarms.py and jsonalarmsutils.py
 X fix file path issues to alarms.json
 X Rework the server algorithm
 X NOTE: Client no longer saves to alarms.json file
-Create docs folder
+X Create docs folder
 Rework music player
 Create new function for the client to query the server for active alarms
 Allow the client to add/remove single alarm rather than rewriting all alarms
