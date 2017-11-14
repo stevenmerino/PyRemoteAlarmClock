@@ -148,6 +148,7 @@ def trigger(alarm):
         pass
     pygame.mixer.music.load(os.path.join('res', 'music', 'zelda.mp3'))
     pygame.mixer.music.play(0)
+    #TODO: remove the self.thread value of the running alarm
 
 def stop_trigger():
     if pygame.mixer.music.get_busy():
@@ -155,6 +156,7 @@ def stop_trigger():
         print("Alarm Stopped.")
     else:
         print("Trigger is not running.")
+    #TODO: remove the self.thread value of the running alarm
 
 if __name__ == "__main__":
     alarms_path = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))
