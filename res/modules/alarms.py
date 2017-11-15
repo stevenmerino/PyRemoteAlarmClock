@@ -1,13 +1,12 @@
 #! /usr/local/bin/python3.6
 
 import res.modules.typefield as typefield    # Needs Python 3.6 to work.
+import res.modules.music as music
 import pygame
 import json
 import threading
 import datetime
 import os
-
-pygame.mixer.init()
 
 # Alarm class that requires respective data types and serialize to list.
 class Alarm:
@@ -23,6 +22,7 @@ class Alarm:
         self.time = time            # Tuple representing time of day the alarm goes off
         self.repeat = repeat        # List of datetime.date.weekday() ints that the alarm should repeat
         self.thread = None          # The thread that is responsible for running this Alarm
+        self.player = None          # Stores the music player class
 
     def to_list(self):
         return [self.id, {"name": self.name, "msg": self.msg, "time": self.time, "repeat": self.repeat, "thread": str(self.thread)}]
@@ -118,6 +118,7 @@ def create_thread(alarm):
     t.daemon = True
     t.start()
     alarm.thread = t
+    print("Alarm threaded:", alarm.to_list())
 
 # Checks an Alarm's time against the current time and calls trigger function if they are equal then stops
 # TODO: slow down thread to reduce cpu usage?
@@ -134,29 +135,19 @@ def alarm_thread(alarm):
 # This is a gnarly nightmarish way to do a playlist TODO: revise music player add random song selection
 def trigger(alarm):
     print("Alarm Triggered", alarm.name, alarm.msg)
-    pygame.mixer.music.load(os.path.join('res', 'music', 'hobbits.mp3'))
-    pygame.mixer.music.play(0)
-    while pygame.mixer.music.get_busy():
-        pass
-    pygame.mixer.music.load(os.path.join('res', 'music', 'sherlock.mp3'))
-    pygame.mixer.music.play(0)
-    while pygame.mixer.music.get_busy():
-        pass
-    pygame.mixer.music.load(os.path.join('res', 'music', 'skyrim.mp3'))
-    pygame.mixer.music.play(0)
-    while pygame.mixer.music.get_busy():
-        pass
-    pygame.mixer.music.load(os.path.join('res', 'music', 'zelda.mp3'))
-    pygame.mixer.music.play(0)
-    #TODO: remove the self.thread value of the running alarm
+    alarm.player = music.Player()
+    alarm.player.start()
 
-def stop_trigger():
-    if pygame.mixer.music.get_busy():
-        pygame.mixer.music.stop()
-        print("Alarm Stopped.")
-    else:
-        print("Trigger is not running.")
-    #TODO: remove the self.thread value of the running alarm
+def stop_trigger(alarms_object):
+    for alarm in alarms_object.alarms['Alarms']:
+        if alarm.thread != None:
+            if alarm.player != None:
+                alarm.player.shutdown_flag.set()
+                alarm.player = None
+                alarm.thread = None
+                print("Alarm:", alarm.name, "has been reset.")
+                print("Alarms:", alarms_object.to_json())
+
 
 if __name__ == "__main__":
     alarms_path = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))

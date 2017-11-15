@@ -2,23 +2,23 @@
 
 import res.modules.sockets as sockets
 import res.modules.alarms as alarms
+import queue
 import json
 import os
 
 if __name__ == "__main__":
-    server_socket = sockets.ServerSocket()
-
-    alarms_path = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))
+    server_socket = sockets.ServerSocket()                                                                                  # Start socket server
+    alarms_path = os.path.join(os.path.dirname(os.path.realpath('__file__')), os.path.join("res","alarms", "alarms.json"))  # Get alarms path
 
     try:
-        alarms_object = alarms.Alarms(alarms_path).load()   # Loads alarm object from file
+        alarms_object = alarms.Alarms(alarms_path).load()   # try to load alarms object from file
     except:
         alarms_object = alarms.Alarms(alarms_path)          # If there is no alarm file, create new alarm object.
         print("Created new Alarms object.")
     else:
         print("Alarms object loaded from file.")
 
-    while True:
+    while True:                                             # Main server loop
         alarms.check_alarms(alarms_object)                  # Create threads from alarm object if applicable
         if server_socket.msg is not None:
             try:
@@ -32,7 +32,7 @@ if __name__ == "__main__":
                 server_socket.msg = None
 
             if server_socket.msg == "stop":
-                alarms.stop_trigger()
+                alarms.stop_trigger(alarms_object)
                 server_socket.msg = None
             elif server_socket.msg == "status":
                 print("Client requested status. Feature unfinished.")
