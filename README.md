@@ -2,7 +2,7 @@
 
 Alarm clock application that is controlled from a remote device. The idea being that you need get out of bed, go all the way to a different room to turn off your morning alarm. Further increasing the chances that you will stay awake when your alarm goes off. No snoozing allowed!
 
-It should be mentioned that I'm a noob programmer. This program uses raw sockets to transfer JSON across the network and potentially has security risks.
+This program uses raw sockets to transfer JSON across the network and potentially has security risks.
 
 **USE AT YOUR OWN RISK**
 
